@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "579841268245",
+    "project_id": "majdialrifai-jobcard",
+    "storage_bucket": "majdialrifai-jobcard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579841268245:android:3882f135ff52d72bfc4c1c",
+        "android_client_info": {
+          "package_name": "com.example.job_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579841268245-53pteld8397ki8chk58ojsjru5feuvnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk5LSxD5GFHP4HlhzFt-LlM7yPxKQGRSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579841268245-53pteld8397ki8chk58ojsjru5feuvnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
