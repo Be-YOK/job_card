@@ -18,9 +18,9 @@ class JobCard extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Job_Card',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.yellow,
       ),
-      home: const MyHomePage(title: 'Home'),
+      home: const MyHomePage(title: 'الصفحة الرئيسية'),
     );
   }
 }
