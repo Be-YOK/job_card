@@ -39,9 +39,17 @@ class DatabaseSirvecs {
     await newJobCardDoc.set(json);
   }
 
-  // Read all
+  // Get all
   Stream<List<JobCard>> getAllJobCards() => FirebaseFirestore.instance
       .collection('JobCard')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
+
+  // Get by car number
+  Stream<List<JobCard>> getAllJobCardsByCarNo(String carNo) => FirebaseFirestore.instance
+      .collection('JobCard')
+      .where('carNo', isEqualTo: carNo)
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
