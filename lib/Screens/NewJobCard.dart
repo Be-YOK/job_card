@@ -33,7 +33,7 @@ class _NewJobCardState extends State<NewJobCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('فاتورة جديدة'),
+        title: const Text('طلب عمل صيانة جديد'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
