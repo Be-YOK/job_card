@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
 import 'package:intl/intl.dart';
+import 'package:job_card/Other/HandWriting.dart';
 
 class NewJobCard extends StatefulWidget {
   const NewJobCard({Key? key}) : super(key: key);
@@ -125,13 +126,21 @@ class _NewJobCardState extends State<NewJobCard> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      CustomPaint(
-                        painter: DebugSignaturePainterCP(
-                          control: control,
-                          cp: false,
-                          cpStart: false,
-                          cpEnd: false,
-                        ),
+                      Container(
+                        width: 500,
+                        height: 40,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HandWriting()),
+                              );
+                            },
+                            child: const Text(
+                              'اضافة خدمات',
+                              style: TextStyle(fontSize: 17),
+                            )),
                       ),
                     ],
                   ),
