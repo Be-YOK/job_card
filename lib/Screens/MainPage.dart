@@ -15,14 +15,14 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('الصفحة الرئيسية'),
+        title: const Text('الصفحة الرئيسية'),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 25, 15, 50),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(15, 25, 15, 50),
               child: Image(
                 image: AssetImage('assets/logo.png'),
                 width: 130,
@@ -41,8 +41,8 @@ class _MainPageState extends State<MainPage> {
                         MaterialPageRoute(builder: (context) => const NewJobCard()),
                       );
                     },
-                    child: Text(
-                      "فاتورة جديدة",
+                    child: const Text(
+                      'طلب عمل صيانة جديد',
                       style: TextStyle(fontSize: 25),
                     ),
                   ),
@@ -58,7 +58,7 @@ class _MainPageState extends State<MainPage> {
                         MaterialPageRoute(builder: (context) => const Search()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "بحث",
                       style: TextStyle(fontSize: 25),
                     ),
@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
                         MaterialPageRoute(builder: (context) => const WaitList()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "قائمة الانتظار",
                       style: TextStyle(fontSize: 25),
                     ),
