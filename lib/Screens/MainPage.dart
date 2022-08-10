@@ -15,6 +15,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('الصفحة الرئيسية'),
         centerTitle: true,
       ),

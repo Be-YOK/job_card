@@ -4,7 +4,6 @@ import '../Models/JobCard.dart';
 class DatabaseSirvecs {
   // Create
   Future createJobCard(
-      String id,
       String cardNo,
       DateTime createdAt,
       String sirveces,
@@ -12,10 +11,11 @@ class DatabaseSirvecs {
       String phone,
       String name,
       String carNo,
-      double km,
+      String km,
       String model,
-      int nClyn,
-      String chassiNo) async {
+      String nClyn,
+      String chassiNo,
+      String signature) async {
     final newJobCardDoc =
         FirebaseFirestore.instance.collection('JobCard').doc();
 
@@ -32,6 +32,7 @@ class DatabaseSirvecs {
       model: model,
       nClyn: nClyn,
       chassiNo: chassiNo,
+      signature: signature
     );
 
     final json = jobCard.toJson();
@@ -64,10 +65,11 @@ class DatabaseSirvecs {
       String phone,
       String name,
       String carNo,
-      double km,
+      String km,
       String model,
-      int nClyn,
-      String chassiNo) async {
+      String nClyn,
+      String chassiNo,
+      String signature) async {
     final newJobCardDoc =
         FirebaseFirestore.instance.collection('JobCard').doc();
 
@@ -84,6 +86,7 @@ class DatabaseSirvecs {
       model: model,
       nClyn: nClyn,
       chassiNo: chassiNo,
+      signature: signature
     );
 
     final json = jobCard.toJson();
