@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
+import 'package:job_card/Database/DatabaseSirvecs.dart';
 
 HandSignatureControl control = HandSignatureControl(
   threshold: 0.01,
@@ -14,6 +15,8 @@ ValueNotifier<String?> svg = ValueNotifier<String?>(null);
 ValueNotifier<ByteData?> rawImage = ValueNotifier<ByteData?>(null);
 
 ValueNotifier<ByteData?> rawImageFit = ValueNotifier<ByteData?>(null);
+
+DatabaseSirvecs _databaseSirvecs = DatabaseSirvecs();
 
 class HandWriting extends StatelessWidget {
   const HandWriting({Key? key}) : super(key: key);
@@ -82,10 +85,14 @@ class HandWriting extends StatelessWidget {
                           fit: false,
                         );
 
-                        rawImageFit.value = await control.toImage(
+                        var image = rawImageFit.value = await control.toImage(
                           color: Colors.blueAccent,
                           background: Colors.greenAccent,
                         );
+
+                        String url = await _databaseSirvecs.uploadImage(image);
+                        
+                        Navigator.pop(context, url);
                       },
                       child: Text('export'),
                     ),

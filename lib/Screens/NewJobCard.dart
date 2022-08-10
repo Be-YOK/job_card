@@ -26,6 +26,9 @@ class _NewJobCardState extends State<NewJobCard> {
 
   List data = ['', '', '', '', '', '', '', '', '', '', ''];
 
+  var details;
+  var signature;
+
   String formattedDate =
       DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
 
@@ -136,12 +139,17 @@ class _NewJobCardState extends State<NewJobCard> {
                         width: 500,
                         height: 40,
                         child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
+                            onPressed: () async {
+                              final result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const HandWriting()),
                               );
+
+                              setState(() {
+                                details = result;
+                              });
+                              print('details = $details');
                             },
                             child: const Text(
                               'اضافة خدمات',
@@ -209,7 +217,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.blue),
                                 onPressed: () async {
-                                  var result = await databaseSirvecs
+                                  await databaseSirvecs
                                       .createJobCard(
                                           data[0],
                                           DateTime.now(),
