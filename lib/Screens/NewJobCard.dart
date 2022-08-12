@@ -26,8 +26,8 @@ class _NewJobCardState extends State<NewJobCard> {
 
   List data = ['', '', '', '', '', '', '', '', '', '', ''];
 
-  String details = '';
-  String signature = '';
+  var details;
+  var signature;
 
   String formattedDate =
       DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
@@ -100,7 +100,6 @@ class _NewJobCardState extends State<NewJobCard> {
                                 child: TextFormField(
                                     onChanged: (value) {
                                       data[index] = value;
-                                      print('${info[index]} = $value');
                                     },
                                     decoration: const InputDecoration(
                                         border: InputBorder.none)),
@@ -150,6 +149,7 @@ class _NewJobCardState extends State<NewJobCard> {
                               setState(() {
                                 details = result;
                               });
+                              print(details);
                             },
                             child: const Text(
                               'اضافة خدمات',
@@ -296,7 +296,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                       .createJobCard(
                                           data[0],
                                           DateTime.now(),
-                                          '',
+                                          details,
                                           false,
                                           data[2],
                                           data[1],
@@ -305,7 +305,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                           data[3],
                                           data[5],
                                           data[7],
-                                          '')
+                                          signature)
                                       .then((result) async {
                                     await showDialog(
                                       context: context,

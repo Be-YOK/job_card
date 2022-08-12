@@ -128,6 +128,28 @@ class _HandWritingState extends State<HandWriting> {
                                             ),
                                           ],
                                         ));
+                              } catch (e) {
+                                setState(() {
+                                  loading = false;
+                                });
+
+                                await showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: const Text('حدث خطأ'),
+                                          content: const Text(
+                                              'تحقق من اتصال الانترنت'),
+                                          actions: <Widget>[
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop();
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ));
                               }
 
                               setState(() {
