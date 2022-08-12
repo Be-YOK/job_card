@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
 import 'package:intl/intl.dart';
 import 'package:job_card/Database/DatabaseSirvecs.dart';
-import 'package:job_card/Other/HandWriting.dart';
+import 'package:job_card/HandWriting/HandWriting.dart';
+import 'package:job_card/Other/AlertMessage.dart';
 import 'package:job_card/Screens/MainPage.dart';
 
 class NewJobCard extends StatefulWidget {
@@ -149,7 +150,6 @@ class _NewJobCardState extends State<NewJobCard> {
                               setState(() {
                                 details = result;
                               });
-                              print(details);
                             },
                             child: const Text(
                               'اضافة خدمات',
@@ -198,7 +198,8 @@ class _NewJobCardState extends State<NewJobCard> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => HandWriting(
-                                        date: formattedDate, type: 'signature')),
+                                        date: formattedDate,
+                                        type: 'signature')),
                               );
 
                               setState(() {
@@ -237,46 +238,13 @@ class _NewJobCardState extends State<NewJobCard> {
                                           data[7],
                                           signature)
                                       .then((result) async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('تمت العملية بنجاح'),
-                                        content: const Text(
-                                            'تم حفظ طلب عمل لاصيانة'),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const MainPage()),
-                                              );
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                    await alertMessage(
+                                        context,
+                                        'تمت العملية بنجاح',
+                                        'تم حفظ طلب الصيانة');
                                   }).catchError((error) async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('حدث خطأ'),
-                                        content: const Text(
-                                            'تحقق من اتصال الانترنت'),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.of(context,
-                                                      rootNavigator: true)
-                                                  .pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                    await alertMessage(context, 'حدث خطأ',
+                                        'تحقق من اتصال الانترنت');
                                   });
                                 },
                                 child: const Text(
@@ -292,7 +260,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.red),
                                 onPressed: () async {
-                                  var result = await databaseSirvecs
+                                  await databaseSirvecs
                                       .createJobCard(
                                           data[0],
                                           DateTime.now(),
@@ -307,46 +275,13 @@ class _NewJobCardState extends State<NewJobCard> {
                                           data[7],
                                           signature)
                                       .then((result) async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('تمت العملية بنجاح'),
-                                        content: const Text(
-                                            'تم حفظ طلب عمل لاصيانة'),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const MainPage()),
-                                              );
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                    await alertMessage(
+                                        context,
+                                        'تمت العملية بنجاح',
+                                        'تم حفظ طلب الصيانة');
                                   }).catchError((error) async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('حدث خطأ'),
-                                        content: const Text(
-                                            'تحقق من اتصال الانترنت'),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.of(context,
-                                                      rootNavigator: true)
-                                                  .pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                    await alertMessage(context, 'حدث خطأ',
+                                        'تحقق من اتصال الانترنت');
                                   });
                                 },
                                 child: const Text(

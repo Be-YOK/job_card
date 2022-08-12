@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
 import 'package:job_card/Database/DatabaseSirvecs.dart';
-import 'Loading.dart';
+import '../Other/AlertMessage.dart';
+import '../Other/Loading.dart';
 
 HandSignatureControl control = HandSignatureControl(
   threshold: 0.01,
@@ -111,52 +112,22 @@ class _HandWritingState extends State<HandWriting> {
                                   loading = false;
                                 });
 
-                                await showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: const Text('حدث خطأ'),
-                                          content: const Text(
-                                              'تحقق من اتصال الانترنت'),
-                                          actions: <Widget>[
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pop();
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ));
+                                await alertMessage(context, 'حدث خطأ',
+                                    'تحقق من اتصال الانترنت');
                               } catch (e) {
                                 setState(() {
                                   loading = false;
                                 });
 
-                                await showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: const Text('حدث خطأ'),
-                                          content: const Text(
-                                              'تحقق من اتصال الانترنت'),
-                                          actions: <Widget>[
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pop();
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ));
+                                await alertMessage(context, 'حدث خطأ',
+                                    'تحقق من اتصال الانترنت');
                               }
 
                               setState(() {
                                 loading = false;
                               });
 
-                              if (url != null && url != '')
+                              if (url != '')
                                 Navigator.pop(context, url);
                             },
                             child: Text('حفظ'),
