@@ -107,8 +107,15 @@ class DatabaseSirvecs {
   }
 
   // upload Image to Firebase storage
-  Future uploadImage(ByteData? image) async {
-    var reference = _storage.child("details/");
+  Future uploadImage(ByteData? image, String date, String type) async {
+    var reference;
+
+    if (type == 'details') {
+      reference = _storage.child("details_${date.replaceAll(' ', '').replaceAll('-', '_')}/");
+    } else {
+      reference = _storage.child("signature_${date.replaceAll(' ', '').replaceAll('-', '_')}/");
+    }
+
 
     final buffer = image!.buffer;
     final detailsImage = buffer.asUint8List(image.offsetInBytes, image.lengthInBytes);

@@ -26,8 +26,8 @@ class _NewJobCardState extends State<NewJobCard> {
 
   List data = ['', '', '', '', '', '', '', '', '', '', ''];
 
-  var details;
-  var signature;
+  String details = '';
+  String signature = '';
 
   String formattedDate =
       DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
@@ -143,13 +143,13 @@ class _NewJobCardState extends State<NewJobCard> {
                               final result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HandWriting()),
+                                    builder: (context) => HandWriting(
+                                        date: formattedDate, type: 'details')),
                               );
 
                               setState(() {
                                 details = result;
                               });
-                              print('details = $details');
                             },
                             child: const Text(
                               'اضافة خدمات',
@@ -193,12 +193,17 @@ class _NewJobCardState extends State<NewJobCard> {
                         width: 500,
                         height: 40,
                         child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
+                            onPressed: () async {
+                              final result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HandWriting()),
+                                    builder: (context) => HandWriting(
+                                        date: formattedDate, type: 'signature')),
                               );
+
+                              setState(() {
+                                signature = result;
+                              });
                             },
                             child: const Text(
                               'اضافة توقيع',
@@ -221,7 +226,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                       .createJobCard(
                                           data[0],
                                           DateTime.now(),
-                                          '',
+                                          details,
                                           true,
                                           data[2],
                                           data[1],
@@ -230,7 +235,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                           data[3],
                                           data[5],
                                           data[7],
-                                          '')
+                                          signature)
                                       .then((result) async {
                                     await showDialog(
                                       context: context,
