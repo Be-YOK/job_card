@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:job_card/Database/DatabaseSirveces.dart';
+import 'package:job_card/Database/DatabaseSirvecs.dart';
 import 'package:job_card/Other/Loading.dart';
-import 'package:job_card/main.dart';
 
 DatabaseSirvecs databaseSirvecs = DatabaseSirvecs();
 
@@ -21,7 +21,7 @@ class _WaitListState extends State<WaitList> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-          child: StreamBuilder(
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: databaseSirvecs.getAllWaitingJobCards(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -33,7 +33,7 @@ class _WaitListState extends State<WaitList> {
             return ListView.builder(
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(snapshot.toString()),
+                  title: Text(snapshot.data!.docs[index].data()['']),
                 );
               },
             );

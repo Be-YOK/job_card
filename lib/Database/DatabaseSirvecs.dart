@@ -62,13 +62,11 @@ class DatabaseSirvecs {
           snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
 
   // Get waiting job cards
-  Stream<List<JobCard>> getAllWaitingJobCards() => FirebaseFirestore
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllWaitingJobCards() => FirebaseFirestore
       .instance
       .collection('JobCard')
       .where('done', isEqualTo: false)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
+      .snapshots();
 
   // Update
   Future updateJobCard(
