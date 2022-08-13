@@ -61,6 +61,15 @@ class DatabaseSirvecs {
       .map((snapshot) =>
           snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
 
+  // Get waiting job cards
+  Stream<List<JobCard>> getAllWaitingJobCards() => FirebaseFirestore
+      .instance
+      .collection('JobCard')
+      .where('done', isEqualTo: false)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
+
   // Update
   Future updateJobCard(
       String id,
@@ -106,7 +115,7 @@ class DatabaseSirvecs {
     await jobCardDoc.delete();
   }
 
-  // upload Image to Firebase storage
+  // upload Image to Firebase storage and return the url as a string
   Future uploadImage(ByteData? image, String date, String type) async {
     var reference;
 
