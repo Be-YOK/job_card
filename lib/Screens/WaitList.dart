@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:job_card/Database/DatabaseSirvecs.dart';
 import 'package:job_card/Other/Loading.dart';
+import 'package:job_card/Screens/JobCardPage.dart';
 
 DatabaseSirvecs databaseSirvecs = DatabaseSirvecs();
 
@@ -20,8 +22,7 @@ class _WaitListState extends State<WaitList> {
         title: const Text('قائمة الانتظار'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: databaseSirvecs.getAllWaitingJobCards(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -30,16 +31,44 @@ class _WaitListState extends State<WaitList> {
             return const Center(
                 child: Text('حدث خطأ. تحقق من الاتصال بالانترنت'));
           } else {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(snapshot.data!.docs[index].data()['']),
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: snapshot.data!.size,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          '${snapshot.data!.docs[index].data()['name']} \nmobile: ${snapshot.data!.docs[index].data()['phone']} \n${snapshot.data!.docs[index].data()['model']} - #${snapshot.data!.docs[index].data()['carNo']}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(DateFormat('yyyy-MM-dd – kk:mm').format(
+                            snapshot.data!.docs[index]
+                                .data()['createdAt']
+                                .toDate())),
+                        leading: const Icon(Icons.car_crash),
+                        iconColor: Colors.red,
+                        tileColor: Colors.grey,
+                        onTap: () {
+                          String id = snapshot.data!.docs[index].data()['id'];
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => JobCardPage(id: id)),
+                          );
+                        },
+                      ),
+                      Container(height: 10)
+                    ],
+                  );
+                },
+              ),
             );
           }
         },
-      )),
+      ),
     );
   }
 }

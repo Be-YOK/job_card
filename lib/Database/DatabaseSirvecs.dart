@@ -46,27 +46,31 @@ class DatabaseSirvecs {
   }
 
   // Get all
-  Stream<List<JobCard>> getAllJobCards() => FirebaseFirestore.instance
-      .collection('JobCard')
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllJobCards() =>
+      FirebaseFirestore.instance.collection('JobCard').snapshots();
+
+  // Get by document id
+  Stream<QuerySnapshot<Map<String, dynamic>>> getJobCardById(
+          String id) =>
+      FirebaseFirestore.instance
+          .collection('JobCard')
+          .where('id', isEqualTo: id)
+          .snapshots();
 
   // Get by car number
-  Stream<List<JobCard>> getAllJobCardsByCarNo(String carNo) => FirebaseFirestore
-      .instance
-      .collection('JobCard')
-      .where('carNo', isEqualTo: carNo)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => JobCard.fromJson(doc.data())).toList());
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllJobCardsByCarNo(
+          String carNo) =>
+      FirebaseFirestore.instance
+          .collection('JobCard')
+          .where('carNo', isEqualTo: carNo)
+          .snapshots();
 
   // Get waiting job cards
-  Stream<QuerySnapshot<Map<String, dynamic>>> getAllWaitingJobCards() => FirebaseFirestore
-      .instance
-      .collection('JobCard')
-      .where('done', isEqualTo: false)
-      .snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllWaitingJobCards() =>
+      FirebaseFirestore.instance
+          .collection('JobCard')
+          .where('done', isEqualTo: false)
+          .snapshots();
 
   // Update
   Future updateJobCard(
@@ -118,21 +122,23 @@ class DatabaseSirvecs {
     var reference;
 
     if (type == 'details') {
-      reference = _storage.child("details_${date.replaceAll(' ', '').replaceAll('-', '_')}/");
+      reference = _storage
+          .child("details_${date.replaceAll(' ', '').replaceAll('-', '_')}/");
     } else {
-      reference = _storage.child("signature_${date.replaceAll(' ', '').replaceAll('-', '_')}/");
+      reference = _storage
+          .child("signature_${date.replaceAll(' ', '').replaceAll('-', '_')}/");
     }
 
-
     final buffer = image!.buffer;
-    final detailsImage = buffer.asUint8List(image.offsetInBytes, image.lengthInBytes);
+    final detailsImage =
+        buffer.asUint8List(image.offsetInBytes, image.lengthInBytes);
 
     UploadTask uploadTask = reference.putData(detailsImage);
 
-    var dowurl = await (await uploadTask.whenComplete(() => null)).ref.getDownloadURL();
+    var dowurl =
+        await (await uploadTask.whenComplete(() => null)).ref.getDownloadURL();
     String url = dowurl.toString();
 
     return url;
-   }
-
+  }
 }
