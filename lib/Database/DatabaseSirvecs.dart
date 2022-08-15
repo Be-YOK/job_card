@@ -88,7 +88,7 @@ class DatabaseSirvecs {
       String chassiNo,
       String signature) async {
     final newJobCardDoc =
-        FirebaseFirestore.instance.collection('JobCard').doc();
+        FirebaseFirestore.instance.collection('JobCard').doc(id);
 
     final jobCard = JobCard(
         id: newJobCardDoc.id,

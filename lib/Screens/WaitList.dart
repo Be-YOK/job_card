@@ -52,11 +52,12 @@ class _WaitListState extends State<WaitList> {
                         tileColor: Colors.grey,
                         onTap: () {
                           String id = snapshot.data!.docs[index].data()['id'];
+                          String title = '${snapshot.data!.docs[index].data()['model']} - #${snapshot.data!.docs[index].data()['carNo']}';
 
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => JobCardPage(id: id)),
+                                builder: (context) => JobCardPage(id: id, title: title)),
                           );
                         },
                       ),
