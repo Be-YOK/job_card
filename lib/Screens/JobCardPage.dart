@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:job_card/Other/AlertMessage.dart';
+import 'package:job_card/Other/AlertMessages/AlertMessage.dart';
+import 'package:job_card/Other/AlertMessages/TwoButtonsAlertMessage.dart';
 import '../Database/DatabaseSirvecs.dart';
 import '../Other/Loading.dart';
 
@@ -29,6 +30,56 @@ class _JobCardPageState extends State<JobCardPage> {
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
+        actions: [
+          PopupMenuButton(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                onTap: () {
+                  // TODO
+                },
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.black,
+                    ),
+                    Text('تعديل'),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                onTap: () async {
+                  bool yes = await twoButtonsAlertMessage(
+                      context,
+                      'هل انت متأكد من الحذف؟',
+                      'لا يمكن اعادة الطلبات المحذوفة');
+                  if (yes) {
+                    await databaseSirvecs
+                        .deleteJobCard(id)
+                        .then((result) async {
+                      await alertMessage(
+                          context, 'تمت العملية بنجاح', 'تم حذف طلب الصيانة');
+                    });
+                  }
+                },
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.delete,
+                      color: Colors.black,
+                    ),
+                    Text('حذف'),
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: databaseSirvecs.getJobCardById(id),
@@ -151,7 +202,8 @@ class _JobCardPageState extends State<JobCardPage> {
                               String cardNo =
                                   snapshot.data!.docs[index].data()['cardNo'];
                               var createdAt = snapshot.data!.docs[index]
-                                  .data()['createdAt'].toDate();
+                                  .data()['createdAt']
+                                  .toDate();
                               String sirveces =
                                   snapshot.data!.docs[index].data()['sirveces'];
                               bool done = true;
@@ -197,9 +249,9 @@ class _JobCardPageState extends State<JobCardPage> {
                               });
 
                               if (finished) {
-                                Navigator.of(context, rootNavigator: true).pop();
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
                               }
-                              
                             },
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -220,9 +272,6 @@ class _JobCardPageState extends State<JobCardPage> {
           }
         },
       ),
-      drawer: Drawer(child: ListView(children: [
-        
-      ],)),
     );
   }
 }
