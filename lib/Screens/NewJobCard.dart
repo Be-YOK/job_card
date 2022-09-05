@@ -3,7 +3,7 @@ import 'package:hand_signature/signature.dart';
 import 'package:intl/intl.dart';
 import 'package:job_card/Database/DatabaseSirvecs.dart';
 import 'package:job_card/HandWriting/HandWriting.dart';
-import 'package:job_card/Other/AlertMessage.dart';
+import 'package:job_card/Other/AlertMessages/AlertMessage.dart';
 import 'package:job_card/Screens/MainPage.dart';
 
 class NewJobCard extends StatefulWidget {
@@ -35,13 +35,11 @@ class _NewJobCardState extends State<NewJobCard> {
 
   DatabaseSirvecs databaseSirvecs = DatabaseSirvecs();
 
+  //var currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('طلب عمل صيانة جديد'),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Form(
           child: Padding(
@@ -221,7 +219,7 @@ class _NewJobCardState extends State<NewJobCard> {
                             height: 40,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.blue),
+                                    primary: Color.fromARGB(255, 35, 252, 42)),
                                 onPressed: () async {
                                   await databaseSirvecs
                                       .createJobCard(
@@ -248,7 +246,7 @@ class _NewJobCardState extends State<NewJobCard> {
                                   });
                                 },
                                 child: const Text(
-                                  'انتهى',
+                                  'حفظ',
                                   style: TextStyle(fontSize: 17),
                                 )),
                           ),
@@ -299,6 +297,31 @@ class _NewJobCardState extends State<NewJobCard> {
           ),
         ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //     iconSize: 29,
+      //     showUnselectedLabels: false,
+      //     unselectedFontSize: 15,
+      //     backgroundColor: Colors.blue,
+      //     selectedItemColor: Colors.white,
+      //     currentIndex: currentIndex,
+      //     onTap: (index) => setState(() => currentIndex = index),
+      //     items: const [
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.fiber_new_outlined),
+      //         label: "جديد",
+      //         backgroundColor: Colors.black,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.search),
+      //         label: "بحث",
+      //         backgroundColor: Colors.black,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.watch_later_outlined),
+      //         label: "للإنهاء",
+      //         backgroundColor: Colors.black,
+      //       )
+      //     ]),
     );
   }
 }
