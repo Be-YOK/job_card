@@ -18,10 +18,6 @@ class _WaitListState extends State<WaitList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('قائمة الانتظار'),
-        centerTitle: true,
-      ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: databaseSirvecs.getAllWaitingJobCards(),
         builder: (context, snapshot) {
@@ -52,12 +48,14 @@ class _WaitListState extends State<WaitList> {
                         tileColor: Colors.grey,
                         onTap: () {
                           String id = snapshot.data!.docs[index].data()['id'];
-                          String title = '${snapshot.data!.docs[index].data()['model']} - #${snapshot.data!.docs[index].data()['carNo']}';
+                          String title =
+                              '${snapshot.data!.docs[index].data()['model']} - #${snapshot.data!.docs[index].data()['carNo']}';
 
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => JobCardPage(id: id, title: title)),
+                                builder: (context) =>
+                                    JobCardPage(id: id, title: title)),
                           );
                         },
                       ),

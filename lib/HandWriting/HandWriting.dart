@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
 import 'package:job_card/Database/DatabaseSirvecs.dart';
-import '../Other/AlertMessage.dart';
+import '../Other/AlertMessages/AlertMessage.dart';
 import '../Other/Loading.dart';
 
 HandSignatureControl control = HandSignatureControl(
@@ -127,8 +127,7 @@ class _HandWritingState extends State<HandWriting> {
                                 loading = false;
                               });
 
-                              if (url != '')
-                                Navigator.pop(context, url);
+                              if (url != '') Navigator.pop(context, url);
                             },
                             child: Text('حفظ'),
                           ),
