@@ -3,7 +3,7 @@ import 'package:hand_signature/signature.dart';
 import 'package:intl/intl.dart';
 import 'package:job_card/Database/DatabaseSirvecs.dart';
 import 'package:job_card/HandWriting/HandWriting.dart';
-import 'package:job_card/Other/AlertMessage.dart';
+import 'package:job_card/Other/AlertMessages/AlertMessage.dart';
 import 'package:job_card/Screens/MainPage.dart';
 
 class NewJobCard extends StatefulWidget {
